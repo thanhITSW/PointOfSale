@@ -1,0 +1,466 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+* {
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  transition: all .2s linear;
+  text-transform: capitalize;
+}
+
+body {
+  min-height: 100vh;
+  background: #333333;
+  color: white;
+  background-size: cover;
+  background-position: center;
+
+}
+
+:root {
+  --blue: #2a2185;
+  --white: #fff;
+  --gray: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
+}
+
+/*================ Toggle============= */
+.menu-btn {
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-size: 35px;
+  margin: 25px;
+  cursor: pointer;
+}
+
+/*================ Menu-Lefts============= */
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+
+.side-bar {
+  background: #1b1a1b;
+  backdrop-filter: blur(15px);
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  overflow-y: auto;
+  transition: 0.6s ease;
+  transition-property: left;
+}
+
+.side-bar::-webkit-scrollbar {
+  width: 0px;
+}
+
+
+
+.side-bar.active {
+  left: 0;
+}
+
+h1 {
+
+  padding-right: 50px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 25px;
+  padding-bottom: 13px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+}
+
+.side-bar .menu {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.side-bar .menu .item {
+  position: relative;
+  cursor: pointer;
+}
+
+.side-bar .menu .item a {
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 5px 30px;
+  line-height: 60px;
+}
+
+.side-bar .menu .item a:hover {
+  background: #33363a;
+  transition: 0.3s ease;
+}
+
+.side-bar .menu .item i {
+  margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown {
+  position: absolute;
+  right: 0;
+  margin: 20px;
+  transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu {
+  background: #262627;
+  display: none;
+}
+
+.side-bar .menu .item .sub-menu a {
+  padding-left: 80px;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}
+
+.close-btn {
+  position: absolute;
+  color: #fff;
+
+  font-size: 23px;
+  right: 0px;
+  margin: 15px;
+  cursor: pointer;
+}
+
+
+.logo-leftbar {
+  width: 100px;
+  margin: 15px;
+  border-radius: 50%;
+  margin-left: 70px;
+  border: 3px solid #b4b8b9;
+}
+
+header {
+  background: #33363a;
+}
+
+
+
+/* ===========Main=============== */
+
+.main {
+  position: absolute;
+  width: calc(100% - 80px);
+  left: 80px;
+  min-height: 100vh;
+  background: var(--black2);
+  transition: 0.5s;
+}
+
+.main.active {
+  width: calc(100% - 300px);
+  left: 300px;
+}
+
+.topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+
+.search {
+  position: relative;
+  width: 400px;
+  margin: 0 10px;
+}
+
+.search label {
+  position: relative;
+  width: 100%;
+}
+
+.search label input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  padding: 5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid var(--black2);
+}
+
+.search label ion-icon {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+.cart-topbar {
+  position: relative;
+  margin-right: 100px;
+}
+
+
+
+
+
+/* ============Avatar-user========== */
+
+
+body {
+  background: #eee;
+}
+
+.action {
+  position: fixed;
+  right: 30px;
+  top: 5px;
+}
+
+.action .profile {
+  border-radius: 50%;
+  cursor: pointer;
+  height: 60px;
+  position: relative;
+  width: 60px;
+}
+
+.action .profile .topbar-img {
+  width: 150%;
+  height: 150%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.action .menu-top {
+  background-color: #FFF;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 10px 20px;
+  position: absolute;
+  right: -10px;
+  width: 200px;
+  transition: 0.5s;
+  top: 120px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.action .menu-top.active {
+  opacity: 1;
+  top: 80px;
+  visibility: visible;
+}
+
+.action .menu-top::before {
+  background-color: #fff;
+  content: '';
+  height: 20px;
+  position: absolute;
+  right: 30px;
+  transform: rotate(45deg);
+  top: -5px;
+  width: 20px;
+}
+
+.action .menu-top h3 {
+  color: #070707;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3em;
+  padding: 20px 0px;
+  text-align: left;
+  width: 100%;
+}
+
+.action .menu-top h3 div {
+  color: #818181;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.action .menu-top ul li {
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: left;
+  list-style: none;
+  padding: 10px 0px;
+}
+
+.action .menu-top ul li .topbar-img {
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 0.5s;
+
+}
+
+.action .menu-top ul li a {
+  display: inline-block;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  padding-left: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.action .menu-top ul li:hover .topbar-img {
+  opacity: 1;
+}
+
+
+.action .menu-top h3 .username-avatar:hover {
+  color: #ff00ff;
+}
+
+.action .menu-top h3:hover {
+  color: #ff00ff;
+}
+
+.action .menu-top h3 div:hover {
+  color: #ff00ff;
+}
+
+
+/* =====================Details Table============== */
+
+.detailsTable {
+  position: relative;
+  /* display: grid; */
+  width: 90%;
+  margin-top: 30px;
+  padding-left: 80px;
+  padding-right: 40px;
+  margin-left: -50px;
+  grid-template-columns: 1000px 1fr;
+  grid-gap: 30px;
+}
+
+.detailsTable .Orders {
+  position: relative;
+  /* display: grid; */
+  min-height: 200px;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.detailsTable .cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cardHeaderDetails h2 {
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.cardHeaderDetails p {
+  color: black;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+
+
+.detailsTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.detailsTable table thead td {
+  font-weight: 600;
+}
+
+.detailsTable .Orders table tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.detailsTable .Orders table tr:last-child {
+  border-bottom: none;
+}
+
+.detailsTable .Orders table tbody tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.detailsTable .Orders table tr td {
+  padding: 10px;
+}
+
+.detailsTable .Orders table tr td:last-child {
+  text-align: end;
+}
+
+.detailsTable .Orders table tr td:nth-child(2) {
+  text-align: end;
+}
+
+.detailsTable .Orders table tr td:nth-child(3) {
+  text-align: center;
+}
+
+.Compelete {
+  padding: 2px 4px;
+  background: #8de02c;
+  color: var(--white);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.topbar button {
+  padding: 20px;
+  background-color: #474f49;
+  color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 20px;
+  float: right;
+  border-radius: 10px;
+}
+
+.topbar button:hover {
+  background-color: #45a049;
+}
+
+#downloadBillBtn {
+  padding: 10px;
+  background-color: rgb(55, 106, 189);
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  float: right;
+}
+
+#downloadBillBtn:hover {
+  padding: 10px;
+  background-color: rgb(3, 105, 57);
+  color: white;
+  border-radius: 5px;
+}

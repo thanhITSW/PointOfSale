@@ -1,0 +1,103 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #888;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.profile-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #b7e5a5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #2a2185;
+}
+
+.profile-info {
+  margin: 20px 0;
+}
+
+.profile-info div {
+  margin-bottom: 10px;
+}
+
+strong {
+  font-weight: bold;
+  color: #2a2185;
+}
+
+#newPassword {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.action-buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #109207;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.profile-info div {
+  background-color: #eaeaea;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.profile-info div span {
+  color: #333;
+}
+
+#newPassword {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.profile-info div {
+  position: relative;
+}
+
+.profile-info input[type="password"] {
+  padding-right: 30px; /* Khoảng trống bên phải để chứa icon */
+}
+
+.profile-info .eye-icon {
+  position: absolute;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+.password-error {
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
+}

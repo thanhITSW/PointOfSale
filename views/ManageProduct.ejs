@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Manage</title>
+    <link rel="stylesheet" href="/Css/ManageProduct.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+
+    <!-- Latest compiled JavaScript -->
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- =============== Navigation ================ -->
+        <div class="navigation">
+            <div class="menu-btn">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="side-bar">
+                <header>
+                    <div class="close-btn">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                    <img class="logo-leftbar" src="/Image/Apple.jpg" alt="">
+                    <h1>Apple Store</h1>
+                </header>
+
+                <div class="menu">
+
+                    <div class="item">
+                        <a href="/">
+                            <i class="fas fa-house-user"></i>
+                            Home
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="/recent-order">
+                            <i class="far fa-eye"></i>
+                            Recent Order
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <form id="reportForm" action="/orders/report" method="post">
+                            <a onclick="submitForm()">
+                                <i class="fas fa-chart-area"></i>
+                                Report And Analytics
+                            </a>
+                        </form>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-box-open"></i>
+                            Products
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/products" class="sub-item">
+                                <i class="far fa-clipboard"></i>
+                                Manage Production
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-user-lock"></i>
+                            Account
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/accounts" class="sub-item">
+                                <i class="far fa-plus-square"></i>
+                                Manage account
+                            </a>
+
+                            <a href="/accounts/list-employees" class="sub-item">
+                                <i class="fas fa-list"></i>
+                                List employees
+                            </a>
+
+                            <a href="/information" class="sub-item">
+                                <i class="fas fa-user"></i>
+                                Your information
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a href="/carts/check-out">
+                            <i class="fab fa-apple-pay" style='font-size:20px'></i>
+                            Check Out
+                        </a>
+                    </div>
+
+                    <div class="item"><a href="/accounts/logout"><i class='fas fa-sign-out-alt'></i>Logout</a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =================== Main =============== -->
+        <div class="main">
+
+            <div class="main-content">
+                <div class="table-wrapper">
+        
+                    <div class="table-title">
+                        <h2>Manage Production</h2>
+                        <div>
+                            <button class="btn btn-success" id="addItemBtn">Add New Item</button>
+                        </div>
+                    </div>
+
+                    <% if(errorMessage.length > 0) { %>
+                        <div id="errorMessageAlert" class="alert fade show" style="color: red; font-size: x-large; text-align: center;">
+                            <%= errorMessage %>
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    <% } %>
+
+                    <% if(successMessage.length > 0) { %>
+                        <div id="successMessageAlert" class="alert fade show" style="color: rgb(45, 177, 45); font-size: x-large; text-align: center;">
+                            <%= successMessage %>
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    <% } %>
+        
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>barcode</th>
+                                <th>Name</th>
+                                <th>Import price</th>
+                                <th>Retail price</th>
+                                <th>Category</th>
+                                <th>Creation date</th>
+                                <th>Actions</th>
+                               </ul>
+                            </tr>
+                        </thead>
+        
+                        <tbody>
+                            <% listItems.forEach(item => { %>
+                                <tr>
+                                    <td><img src="/Image/products/<%= item.url_image %>" alt="Product Image"></td>
+                                    <td><%= item.barcode %></td>
+                                    <td><%= item.name %></td>
+                                    <td><%= item.import_price %></td>
+                                    <td><%= item.retail_price %></td>
+                                    <td><%= item.category %></td>
+                                    <td><%= item.creation_date %></td>
+                                    <td>
+                                        <a href="#" class="edit" 
+                                            data-id="<%= item._id %>" 
+                                            data-barcode="<%= item.barcode %>"
+                                            data-name="<%= item.name %>"
+                                            data-import_price="<%= item.import_price %>"
+                                            data-retail_price="<%= item.retail_price %>"
+                                            data-category="<%= item.category %>"
+                                            data-url_image="<%= item.url_image %>"
+                                            >&#9998;</a>
+                                        <a href="#" class="delete" data-id="<%= item._id %>">&#128465;</a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+            <!-- Add Item Modal -->
+            <div class="modal" id="addItemModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="/products/add" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="color: black;">Add New Item</h5>
+                                <span class="close" id="addItemCloseBtn">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="addBarcode" style="color: black;">Barcode</label>
+                                    <input type="text" name="barcode" id="addBarcode" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addName" style="color: black;">Name</label>
+                                    <input type="text" name="name" id="addName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addImportPrice" style="color: black;">Import Price</label>
+                                    <input type="number" name="import_price" id="addImportPrice" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addRetailPrice" style="color: black;">Retail Price</label>
+                                    <input type="number" name="retail_price" id="addRetailPrice" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addCategory" style="color: black;">Category</label>
+                                    <input type="text" name="category" id="addCategory" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addImage" class="form-label" style="color: black;">Choose Image</label>
+                                    <input accept="image/*" type="file" name="image" id="addImage" class="form-control">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="addItemCancelBtn">Cancel</button>
+                                <button type="submit" class="btn btn-success" id="addItemSaveBtn">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Edit Item Modal -->
+            <div class="modal" id="editItemModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="/products/edit" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Item</h5>
+                                <span class="close" id="editItemCloseBtn">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <input id="editId" type="text" name="id" style="display: none;">
+                                <input id="editUrlImage" type="text" name="url_image" style="display: none;">
+                                <div class="form-group">
+                                    <label for="editBarcode" style="color: black;">Barcode</label>
+                                    <input type="text" name="barcode" id="editBarcode" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editName" style="color: black;">Name</label>
+                                    <input type="text" name="name" id="editName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editImportPrice" style="color: black;">Import Price</label>
+                                    <input type="number" name="import_price" id="editImportPrice" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editRetailPrice" style="color: black;">Retail Price</label>
+                                    <input type="number" name="retail_price" id="editRetailPrice" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCategory" style="color: black;">Category</label>
+                                    <input type="text" name="category" id="editCategory" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editImage" class="form-label" style="color: black;">Choose Image (Use old image if not selected)</label>
+                                    <input accept="image/*" type="file" name="image" id="editImage" class="form-control">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="editItemCancelBtn">Cancel</button>
+                                <button type="submit" class="btn btn-success" id="editItemSaveBtn">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Delete Item Modal -->
+            <div class="modal" id="deleteItemModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="/products/delete">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Item</h5>
+                                <span class="close" id="deleteItemCloseBtn">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <input id="deleteId" type="text" name="id" style="display: none;">
+                                <p>Are you sure you want to delete?</p>
+                                <p class="text-warning"><small>This action cannot be undone.</small></p>
+                            </div>
+                            <div class="modal-footer">deleteItemCancelBtn
+                                <button type="button" class="btn btn-secondary" id="deleteItemCancelBtn">Cancel</button>
+                                <button type="submit" class="btn btn-success" id="deleteItemBtn">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <!--======= JavaScript =============  -->
+    <script src="/Style/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Include Bootstrap CSS and JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function submitForm() {
+            var form = document.getElementById("reportForm");
+            form.submit();
+        }
+
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+        }
+    
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+    
+        document.getElementById('addItemBtn').addEventListener('click', function () {
+            showModal('addItemModal');
+        });
+    
+        document.getElementById('addItemCancelBtn').addEventListener('click', function () {
+            closeModal('addItemModal');
+        });
+    
+        document.querySelector('tbody').addEventListener('click', function (event) {
+            if (event.target.classList.contains('edit')) {
+                const itemId = event.target.getAttribute('data-id');
+                const itemBarcode = event.target.getAttribute('data-barcode');
+                const itemName = event.target.getAttribute('data-name');
+                const itemImportPrice = event.target.getAttribute('data-import_price');
+                const itemRetailPrice = event.target.getAttribute('data-retail_price');
+                const itemCategory = event.target.getAttribute('data-category');
+                const itemUrlImage = event.target.getAttribute('data-url_image');
+
+                document.getElementById('editId').value = itemId
+                document.getElementById('editUrlImage').value = itemUrlImage
+                document.getElementById('editBarcode').value = itemBarcode
+                document.getElementById('editName').value = itemName
+                document.getElementById('editImportPrice').value = itemImportPrice
+                document.getElementById('editRetailPrice').value = itemRetailPrice
+                document.getElementById('editCategory').value = itemCategory
+
+                showModal('editItemModal');
+            } else if (event.target.classList.contains('delete')) {
+
+                const itemId = event.target.getAttribute('data-id');
+
+                document.getElementById('deleteId').value = itemId
+
+                showModal('deleteItemModal');
+            }
+        });
+    
+        document.getElementById('editItemCancelBtn').addEventListener('click', function () {
+            closeModal('editItemModal');
+        });
+    
+        document.getElementById('deleteItemCancelBtn').addEventListener('click', function () {
+            closeModal('deleteItemModal');
+        });
+
+        setTimeout(function() {
+            var errorMessageAlert = document.getElementById('errorMessageAlert');
+            var successMessageAlert = document.getElementById('successMessageAlert');
+            if (errorMessageAlert) {
+                errorMessageAlert.style.display = 'none';
+            }
+            if(successMessageAlert) {
+                successMessageAlert.style.display = 'none';
+            }
+        }, 2000);
+    
+    </script>
+</body>
+
+</html>

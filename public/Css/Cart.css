@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+*{
+  font-family: 'Nunito', sans-serif;
+  margin:0; padding:0;
+  box-sizing: border-box;
+  outline: none; border:none;
+  text-decoration: none;
+  transition: all .2s linear;
+  text-transform: capitalize;
+}
+
+body{
+ min-height: 100vh;
+ background: #333333;
+ color: white;
+ background-size: cover;
+ background-position: center;
+ 
+}
+
+/* body {
+  min-height: 100vh;
+  overflow-x: hidden;
+} */
+
+:root {
+  --blue: #2a2185;
+  --white: #fff;
+  --gray: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
+}
+
+/*================ Toggle============= */
+.menu-btn{
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-size: 35px;
+  margin: 25px;
+  cursor: pointer;
+ }
+
+ /*================ Menu-Lefts============= */
+
+ .container{
+  position: relative;
+	width: 100%;
+}
+
+
+.side-bar{
+ background: #1b1a1b;
+ backdrop-filter: blur(15px);
+ width: 300px;
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ left: -300px;
+ overflow-y: auto;
+ transition: 0.6s ease;
+ transition-property: left;
+}
+.side-bar::-webkit-scrollbar {
+  width: 0px;
+}
+
+
+
+.side-bar.active{
+ left: 0;
+}
+h1{
+
+  padding-right: 50px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 25px;
+  padding-bottom: 13px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+}
+
+.side-bar .menu{
+ width: 100%;
+ margin-top: 30px;
+}
+
+.side-bar .menu .item{
+ position: relative;
+ cursor: pointer;
+}
+
+.side-bar .menu .item a{
+ color: #fff;
+ font-size: 16px;
+ text-decoration: none;
+ display: block;
+ padding: 5px 30px;
+ line-height: 60px;
+}
+
+.side-bar .menu .item a:hover{
+ background: #33363a;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item i{
+ margin-right: 15px;
+}
+
+.side-bar .menu .item a .dropdown{
+ position: absolute;
+ right: 0;
+ margin: 20px;
+ transition: 0.3s ease;
+}
+
+.side-bar .menu .item .sub-menu{
+ background: #262627;
+ display: none;
+}
+
+.side-bar .menu .item .sub-menu a{
+ padding-left: 80px;
+}
+
+.rotate{
+ transform: rotate(90deg);
+}
+
+.close-btn{
+ position: absolute;
+ color: #fff;
+
+ font-size: 23px;
+ right:  0px;
+ margin: 15px;
+ cursor: pointer;
+}
+
+
+
+/* @media (max-width: 900px){
+ .main h1{
+   font-size: 40px;
+   line-height: 60px;
+ }
+} */
+.logo-leftbar{
+  width: 100px;
+  margin: 15px;
+  border-radius: 50%;
+  margin-left: 70px;
+  border: 3px solid #b4b8b9;
+}
+header{
+  background: #33363a;
+}
+
+
+
+/* ===========Main=============== */
+
+.main {
+  position: absolute;
+  width: calc(100% - 80px);
+  left: 80px;
+  min-height: 100vh;
+  background: var(--black2);
+  transition: 0.5s;
+}
+.main.active {
+  width: calc(100% - 300px);
+  left: 300px;
+}
+
+.topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+
+.search {
+  position: relative;
+  width: 400px;
+  margin: 0 10px;
+}
+
+.search label {
+  position: relative;
+  width: 100%;
+}
+
+.search label input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  padding: 5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid var(--black2);
+}
+
+.search label ion-icon {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+/* .user {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+} */
+
+.cart-topbar{
+  position: relative;
+  margin-right: 100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================Cart================================= */
+
+body{
+  background: #eee;
+}
+
+.container-item-cart{
+
+	max-width: 1200px;
+
+	margin: 0 auto;
+  background-color:blanchedalmond;
+  margin-top: 2%;
+  margin-left: 10%;
+}
+
+.container-item-cart> h1{
+
+	padding: 20px 0;
+
+}
+
+.cart-item{
+
+	display: flex;
+
+}
+
+.products{
+
+	flex: 0.75;
+
+}
+
+.product-item-cart{
+
+	display: flex;
+
+	width: 100%;
+
+	height: 200px;
+
+	overflow: hidden;
+
+	border: 1px solid rgb(4, 4, 4);
+
+	margin-bottom: 20px;
+
+}
+
+.product-item-cart:hover{
+
+	border: none;
+
+	box-shadow: 2px 2px 4px red;
+
+	transform: scale(1.01);
+
+}
+
+.product-item-cart > .product-img{
+
+	width: 300px;
+
+	height: 200px;
+
+	object-fit: cover;
+
+}
+
+.product-item-cart > .iproduct-img:hover{
+
+	transform: scale(1.04);
+
+}
+
+.product-info{
+
+	padding: 20px;
+
+	width: 100%;
+
+	position: relative;
+
+}
+
+.product-name {
+
+	margin-bottom: 15px;
+  
+  color: black;
+
+  font-size: 20px
+}
+
+.product-barcode, .product-price, .product-quantity, .product-total {
+
+	margin-bottom: 15px;
+  
+  color: black;
+
+  font-size: 15px
+}
+
+.product-quantity strong, .product-total strong {
+  color: red;
+}
+
+
+.product-remove{
+
+	position: absolute;
+
+	bottom: 20px;
+
+	right: 20px;
+
+	padding: 10px 25px;
+
+	background-color: green;
+
+	color: white;
+
+	cursor: pointer;
+
+	border-radius: 5px;
+
+}
+
+.product-remove:hover{
+
+	background-color: white;
+
+	color: green;
+
+	font-weight: 600;
+
+	border: 1px solid green;
+
+}
+
+.fa{
+
+	margin-right: 5px;
+
+}
+
+.cart-total{
+
+	flex: 0.25;
+
+	margin-left: 20px;
+
+  margin-right: 10px;
+
+	padding: 20px;
+
+	height: 100%;
+
+	border: 1px solid silver;
+
+	border-radius: 5px;
+
+}
+
+.cart-total p{
+
+	display: flex;
+
+	justify-content: space-between;
+
+	margin-bottom: 30px;
+
+	font-size: 20px;
+
+}
+
+.cart-total a{
+
+	display: block;
+
+	text-align: center;
+
+	height: 40px;
+
+	line-height: 40px;
+
+	background-color: tomato;
+
+	color: white;
+
+	text-decoration: none;
+
+}
+
+.cart-total a:hover{
+
+	background-color: red;
+
+}
+
+.product-img {
+  margin-left: 10px;
+  border-radius: 10%;
+  width: 200px;
+  height: 200px;
+}
+
+.topbar button {
+  padding: 20px;
+  background-color: #474f49;
+  color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 20px;
+  float: right;
+  border-radius: 10px;
+}
+
+.topbar button:hover {
+  background-color: #45a049;
+}

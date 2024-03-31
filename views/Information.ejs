@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information</title>
+    <link rel="stylesheet" href="/Css/Information.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+
+    <!-- Latest compiled JavaScript -->
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- =============== Navigation ================ -->
+        <div class="navigation">
+            <div class="menu-btn">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="side-bar">
+                <header>
+                    <div class="close-btn">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                    <img class="logo-leftbar" src="/Image/Apple.jpg" alt="">
+                    <h1>Apple Store</h1>
+                </header>
+
+                <div class="menu">
+
+                    <div class="item">
+                        <a href="/">
+                            <i class="fas fa-house-user"></i>
+                            Home
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="/recent-order">
+                            <i class="far fa-eye"></i>
+                            Recent Order
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <form id="reportForm" action="/orders/report" method="post">
+                            <a onclick="submitForm()">
+                                <i class="fas fa-chart-area"></i>
+                                Report And Analytics
+                            </a>
+                        </form>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-box-open"></i>
+                            Products
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/products" class="sub-item">
+                                <i class="far fa-clipboard"></i>
+                                Manage Production
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-user-lock"></i>
+                            Account
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/accounts" class="sub-item">
+                                <i class="far fa-plus-square"></i>
+                                Manage account
+                            </a>
+
+                            <a href="/accounts/list-employees" class="sub-item">
+                                <i class="fas fa-list"></i>
+                                List employees
+                            </a>
+
+                            <a href="/information" class="sub-item">
+                                <i class="fas fa-user"></i>
+                                Your information
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a href="/carts/check-out">
+                            <i class="fab fa-apple-pay" style='font-size:20px'></i>
+                            Check Out
+                        </a>
+                    </div>
+
+                    <div class="item"><a href="/accounts/logout"><i class='fas fa-sign-out-alt'></i>Logout</a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =================== Main =============== -->
+        <div class="main">
+
+            <div class="main-content">
+                <div class="table-wrapper">
+
+                    <div class="table-title">
+                        <h2 style="color: red;">Information account</h2>
+                        <div>
+                            <button class="btn btn-success" id="openUpdate" data-id="<%= user._id %>"
+                                data-fullname="<%= user.fullname %>" data-email="<%= user.email %>"
+                                data-username="<%= user.username %>" data-phone="<%= user.phone %>"
+                                data-role="<%= user.role %>" data-isActive="<%= user.isActive %>"
+                                data-status="<%= user.status %>"
+                                data-url_avatar="<%= user.url_avatar %>">Update</button>
+
+                            <button class="btn btn-success" id="openChangePW" data-id="<%= user._id %>">Change
+                                password</button>
+                        </div>
+                    </div>
+
+                    <% if(errorMessage.length > 0) { %>
+                        <div id="errorMessageAlert" class="alert fade show" style="color: red; font-size: x-large; text-align: center;">
+                            <%= errorMessage %>
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    <% } %>
+
+                    <% if(successMessage.length > 0) { %>
+                        <div id="successMessageAlert" class="alert fade show" style="color: rgb(45, 177, 45); font-size: x-large; text-align: center;">
+                            <%= successMessage %>
+                          <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    <% } %>
+
+                    <div class="profile-info-container">
+                        <img src="/Image/avatars/<%= user.url_avatar %>" alt="User Avatar">
+                        <div class="profile-info-details">
+                            <div>
+                                <strong>Full Name:</strong> <span><%= user.fullname %></span>
+                              </div>
+                              <div>
+                                <strong>Email:</strong> <span><%= user.email %></span>
+                              </div>
+                              <div>
+                                <strong>Phone:</strong> <span><%= user.phone %></span>
+                              </div>
+                              <div>
+                                <strong>Role:</strong> <span><%= user.role %></span>
+                              </div>
+                              <div>
+                                <strong>Active:</strong> <span><%= user.isActive %></span>
+                              </div>
+                              <div>
+                                <strong>Status:</strong> <span><%= user.status %></span>
+                              </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Edit Modal -->
+                <div class="modal" id="editEmployeeModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" action="/accounts/update-information" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Employees</h5>
+                                    <span class="close" id="editEmployeeCloseBtn">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="editId" type="text" name="id" style="display: none;">
+                                    <input id="editUrlAvatar" type="text" name="url_avatar" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="editFullName" style="color: black;">Full Name</label>
+                                        <input type="text" name="fullname" id="editFullName" class="form-control"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editEmail" style="color: black;">Email</label>
+                                        <input type="email" name="email" id="editEmail" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editPhone" style="color: black;">Phone</label>
+                                        <input type="text" name="phone" id="editPhone" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editImage" class="form-label" style="color: black;">Choose Avatar
+                                            (Use
+                                            old avatar if not selected)</label>
+                                        <input accept="image/*" type="file" name="image" id="editImage"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        id="editEmployeeCancelBtn">Cancel</button>
+                                    <button type="submit" class="btn btn-success" id="editEmployeeSaveBtn">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Change Password Modal -->
+                <div class="modal" id="changePWModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post" action="/accounts/change-password">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Change Password</h5>
+                                    <span class="close" id="changePWCloseBtn">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="changeId" type="text" name="id" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="changePW" style="color: black;">New Password</label>
+                                        <input type="password" name="password" id="changePW" class="form-control"
+                                            required>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        id="changePWCancelBtn">Cancel</button>
+                                    <button type="submit" class="btn btn-success" id="changePWBtn">Change</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!--======= JavaScript =============  -->
+        <script src="/Style/main.js"></script>
+
+        <!-- ====== ionicons ======= -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
+        <!-- Include Bootstrap CSS and JS -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+
+            function submitForm() {
+                var form = document.getElementById("reportForm");
+                form.submit();
+            }
+
+            function showModal(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'flex';
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'none';
+            }
+
+            document.getElementById('openUpdate').addEventListener('click', function (event) {
+
+                const employeeId = event.target.getAttribute('data-id');
+                const employeeUrlAvatar = event.target.getAttribute('data-url_avatar');
+                const employeeFullName = event.target.getAttribute('data-fullname');
+                const employeeEmail = event.target.getAttribute('data-email');
+                const employeePhone = event.target.getAttribute('data-phone');
+
+                document.getElementById('editId').value = employeeId
+                document.getElementById('editUrlAvatar').value = employeeUrlAvatar
+                document.getElementById('editFullName').value = employeeFullName
+                document.getElementById('editEmail').value = employeeEmail
+                document.getElementById('editPhone').value = employeePhone
+
+                showModal('editEmployeeModal');
+
+            });
+
+            document.getElementById('editEmployeeCancelBtn').addEventListener('click', function () {
+                closeModal('editEmployeeModal');
+            });
+
+            document.getElementById('editEmployeeCloseBtn').addEventListener('click', function () {
+                closeModal('editEmployeeModal');
+            });
+
+            document.getElementById('openChangePW').addEventListener('click', function (event) {
+
+                const changeId = event.target.getAttribute('data-id');
+
+                document.getElementById('changeId').value = changeId
+
+                showModal('changePWModal');
+
+            });
+
+            document.getElementById('changePWCancelBtn').addEventListener('click', function () {
+                closeModal('changePWModal');
+            });
+
+            document.getElementById('changePWCloseBtn').addEventListener('click', function () {
+                closeModal('changePWModal');
+            });
+
+            setTimeout(function() {
+            var errorMessageAlert = document.getElementById('errorMessageAlert');
+            var successMessageAlert = document.getElementById('successMessageAlert');
+            if (errorMessageAlert) {
+                errorMessageAlert.style.display = 'none';
+            }
+            if(successMessageAlert) {
+                successMessageAlert.style.display = 'none';
+            }
+        }, 2000);
+
+        </script>
+</body>
+
+</html>

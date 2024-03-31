@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check out</title>
+    <link rel="stylesheet" href="/Css/CheckOut.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+
+    <!-- Latest compiled JavaScript -->
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- =============== Navigation ================ -->
+        <div class="navigation">
+            <div class="menu-btn">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="side-bar">
+                <header>
+                    <div class="close-btn">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                    <img class="logo-leftbar" src="/Image/Apple.jpg" alt="">
+                    <h1>Apple Store</h1>
+                </header>
+
+                <div class="menu">
+
+                    <div class="item">
+                        <a href="/">
+                            <i class="fas fa-house-user"></i>
+                            Home
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="/recent-order">
+                            <i class="far fa-eye"></i>
+                            Recent Order
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <form id="reportForm" action="/orders/report" method="post">
+                            <a onclick="submitForm()">
+                                <i class="fas fa-chart-area"></i>
+                                Report And Analytics
+                            </a>
+                        </form>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-box-open"></i>
+                            Products
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/products" class="sub-item">
+                                <i class="far fa-clipboard"></i>
+                                Manage Production
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-user-lock"></i>
+                            Account
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/accounts" class="sub-item">
+                                <i class="far fa-plus-square"></i>
+                                Manage account
+                            </a>
+
+                            <a href="/accounts/list-employees" class="sub-item">
+                                <i class="fas fa-list"></i>
+                                List employees
+                            </a>
+
+                            <a href="/information" class="sub-item">
+                                <i class="fas fa-user"></i>
+                                Your information
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a href="/carts/check-out">
+                            <i class="fab fa-apple-pay" style='font-size:20px'></i>
+                            Check Out
+                        </a>
+                    </div>
+
+                    <div class="item"><a href="/accounts/logout"><i class='fas fa-sign-out-alt'></i>Logout</a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ==================== Main ================= -->
+        <div class="main">
+
+            <h1>Checkout Item</h1>
+
+            <div class="topbar">
+                <div class="cart-topbar">
+                    <a href="/carts">
+                        <i class='fas fa-shopping-bag' style='font-size:50px; color:black'></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-60">
+                    <div class="container-checkout">
+                        <div class="row">
+                            <div class="col-50">
+                                <h3>Current Order</h3>
+                                <p><i class="fa fa-user"></i> Employee's name: <strong><%= employeeName %></strong></p>
+                                <p><i class="fas fa-plus-circle"></i> Quantity of products: <strong><%= totalQuantity %></strong></p>
+                                <p><i class="fas fa-dollar-sign"></i> Total price: <strong>$ <%= totalPrice %></strong></p>
+                                <div id="phoneDiv">
+                                    <label for="phone"><i class="fa fa-phone"></i> Customer phone number</label>
+                                    <input type="tel" value="<%= customerPhone %>" id="phone" name="phone" placeholder="enter customer phone">
+                                    <button type="button" id="searchBtn">Search Customer</button>
+                                </div>
+                                <div id="information-input" style="display: none;">
+                                    <p id="new" style="font-weight: bold; color: red; display: none;">New customer</p>
+                                    <div id="familiar" style="display: none;">
+                                        <p style="font-weight: bold; color: rgb(33, 177, 33);">Familiar customer</p>
+                                        <form action="/orders/history-customer" method="post">
+                                            <input type="text" id="customerPhoneInput" name="customerPhone" style="display: none;">
+                                            <input type="number" id="receivedInput" name="receivedInput" style="display: none;">
+                                            <button id="historyBtn">History payment</button>
+                                        </form>
+                                    </div>
+                                    <label for="name"><i class="fas fa-user-tie"></i> Customer' name</label>
+                                    <input type="text" id="name" name="name">
+                                    <label for="address"><i class="fa fa-address-card"></i> Customer'
+                                        address</label>
+                                    <input type="text" id="address" name="address">
+                                    <label for="received"><i class="fas fa-money-bill-wave"></i> Money received
+                                        ($)</label>
+                                    <input type="number" value="<%= received %>" id="received" name="received">
+                                    <label for="refunds"><i class="fas fa-money-bill-wave"></i> Money refunds
+                                        ($)</label>
+                                    <input type="number" id="refunds" name="refunds">
+                                    <button data-total_quantity="<%= totalQuantity %>" 
+                                        data-total_price="<%= totalPrice %>" id="purchaseBtn" type="button">Purchase</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-40">
+                    <div class="container-cart">
+                        <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i>
+                                <b><%= totalQuantity %></b></span></h4>
+
+                        <% listCarts.forEach(cart=> { %>
+                            <p><%= cart.productName %>  (<%= cart.quantity %>) <span class="price">$<%= cart.totalPrice %></span></p>
+                        <% }); %>
+                        <hr>
+                        <p>Total <span class="price" style="color:black"><b>$<%= totalPrice %></b></span></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <!--======= JavaScript =============  -->
+    <script src="/Style/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
+    <!-- Include Bootstrap CSS and JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        function submitForm() {
+            var form = document.getElementById("reportForm");
+            form.submit();
+        }
+
+        let debounceTimer;
+        document.getElementById('received').addEventListener('input', function (event) {
+
+            clearTimeout(debounceTimer);
+
+            debounceTimer = setTimeout(function () {
+
+                const received = event.target.value
+                const totalPrice = document.getElementById('purchaseBtn').dataset.total_price
+                const refunds = received - totalPrice
+                document.getElementById('refunds').value = refunds
+                document.getElementById('receivedInput').value = received
+
+            }, 300);
+
+        });
+
+        document.getElementById('searchBtn').addEventListener('click', function (event) {
+
+            const phone = document.getElementById('phone').value
+            document.getElementById('refunds').readOnly = true
+
+            if (phone.length < 3) {
+                return alert('Phone number must have at least 3 characters')
+            }
+
+            const url = '/customers/search'
+            
+            let form = new FormData();
+
+            form.set('phone', phone)
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url, true)
+
+            xhr.addEventListener('load', e => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const json = JSON.parse(xhr.responseText)
+
+                    if(json.code === 0 || json.code === 1) {
+
+                        let name = document.getElementById('name')
+                        let address = document.getElementById('address')
+                        name.value = ''
+                        address.value = ''
+
+                        let informationInput = document.getElementById('information-input')
+                        informationInput.style.display = 'block'
+
+                        if (json.code === 0) {
+                            // faimiliar customer
+                            document.getElementById('new').style.display = 'none'
+                            document.getElementById('familiar').style.display = 'block'
+                            name.value = json.customerName
+                            address.value = json.customerAddress
+                            name.readOnly = true
+                            address.readOnly = true
+                            document.getElementById('customerPhoneInput').value = phone
+                        }
+                        else {
+                            // new customer
+                            document.getElementById('new').style.display = 'block'
+                            document.getElementById('familiar').style.display = 'none'
+                            name.readOnly = false
+                            address.readOnly = false
+                        }
+                    }
+                    else if(json.code === 2) {
+                        return alert(json.message)
+                    }
+                    else {
+                        return alert('Search customer failed')
+                    }
+                }
+            })
+
+            xhr.send(form)
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var myButton = document.getElementById("searchBtn");
+
+            if(document.getElementById("phone").value !== '') {
+                myButton.click();
+
+                if(document.getElementById("received").value !== '') {
+                    const received = document.getElementById('received').value
+                    const totalPrice = document.getElementById('purchaseBtn').dataset.total_price
+                    const refunds = received - totalPrice
+                    document.getElementById('refunds').value = refunds
+                }
+            }
+        });
+
+        document.getElementById('purchaseBtn').addEventListener('click', function (event) {
+
+            const customerPhone = document.getElementById('phone').value
+
+            if (customerPhone.length < 3) {
+                return alert('Phone number must have at least 3 characters')
+            }
+
+            const totalQuantity = event.target.dataset.total_quantity
+            const totalPrice = event.target.dataset.total_price
+            const customerName = document.getElementById('name').value
+            const customerAddress = document.getElementById('address').value
+            const received = document.getElementById('received').value
+            const refunds = document.getElementById('refunds').value
+
+            if(received < totalPrice) {
+                return alert('Not enough money to pay')
+            }
+
+            const url = '/orders/add'
+            
+            let form = new FormData();
+
+            form.set('customerPhone', customerPhone)
+            form.set('totalQuantity', totalQuantity)
+            form.set('totalPrice', totalPrice)
+            form.set('customerName', customerName)
+            form.set('customerAddress', customerAddress)
+            form.set('received', received)
+            form.set('refunds', refunds)
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url, true)
+
+            xhr.addEventListener('load', e => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const json = JSON.parse(xhr.responseText)
+
+                    if (json.code === 0) {
+                        return window.location.href = '/recent-order'
+                    }
+                    else if (json.code === 2) {
+                        return alert(json.message)
+                    }
+                    else {
+                        return alert('An error occurred during payment')
+                    }
+                }
+            })
+
+            xhr.send(form)
+        })
+    
+
+    </script>
+
+</body>
+
+</html>

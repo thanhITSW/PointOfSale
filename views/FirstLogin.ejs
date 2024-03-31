@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change password</title>
+
+  <link rel="stylesheet" href="/Css/FirstLogin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="profile-container">
+    <h1>Change your password</h1>
+    <div class="profile-info">
+      <div>
+        <strong style="color: rgb(220, 21, 21); font-size: 30px;">
+          <%= user.fullname %>
+        </strong>
+      </div>
+      <div>
+        <strong>New Password:</strong>
+        <input type="password" id="newPassword" placeholder="Enter new password">
+        <i id="showPasswordBtn" class="fas fa-eye eye-icon"></i>
+        <div id="passwordError" class="password-error"></div>
+      </div>
+    </div>
+    <div class="action-buttons">
+      <button id="logoutBtn">Logout</button>
+      <button id="saveBtn" data-id="<%= user._id %>">Save</button>
+    </div>
+  </div>
+
+
+  <script>
+
+    document.getElementById('showPasswordBtn').addEventListener('click', function () {
+      const newPasswordInput = document.getElementById('newPassword');
+      newPasswordInput.type = (newPasswordInput.type === 'password') ? 'text' : 'password';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function () {
+      window.location.href = "/accounts/logout";
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', function (event) {
+      const id = event.target.getAttribute('data-id');
+      const newPassword = document.getElementById('newPassword').value
+
+      if (newPassword.length < 4) {
+        passwordError.textContent = "Password must be at least 4 characters";
+        return
+      }
+
+      sendFormWithUrl('/accounts/change-password-first-login', id, newPassword)
+    });
+
+    function sendFormWithUrl(url, id, password) {
+      let form = new FormData();
+
+      form.set('id', id)
+      form.set('password', password)
+
+      let xhr = new XMLHttpRequest();
+
+      xhr.open('POST', url, true)
+
+      xhr.addEventListener('load', e => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const json = JSON.parse(xhr.responseText)
+
+          if (json.code === 0) {
+            window.location.href = "/";
+          }
+          else {
+            passwordError.textContent = json.message;
+          }
+        }
+      })
+
+      xhr.send(form)
+    }
+
+  </script>
+</body>
+
+</html>

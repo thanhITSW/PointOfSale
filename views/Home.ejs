@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="/Css/Home.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- =============== Navigation ================ -->
+        <div class="navigation">
+            <div class="menu-btn">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <div class="side-bar">
+                <header>
+                    <div class="close-btn">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </div>
+                    <img class="logo-leftbar" src="/Image/Apple.jpg" alt="">
+                    <h1>Apple Store</h1>
+                </header>
+
+                <div class="menu">
+
+                    <div class="item">
+                        <a href="/">
+                            <i class="fas fa-house-user"></i>
+                            Home
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <a href="/recent-order">
+                            <i class="far fa-eye"></i>
+                            Recent Order
+                        </a>
+                    </div>
+
+                    <div class="item">
+                        <form id="reportForm" action="/orders/report" method="post">
+                            <a onclick="submitForm()">
+                                <i class="fas fa-chart-area"></i>
+                                Report And Analytics
+                            </a>
+                        </form>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-box-open"></i>
+                            Products
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/products" class="sub-item">
+                                <i class="far fa-clipboard"></i>
+                                Manage Production
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a class="sub-btn">
+                            <i class="fas fa-user-lock"></i>
+                            Account
+                            <i class="fas fa-angle-right dropdown"></i>
+                        </a>
+
+                        <div class="sub-menu">
+                            <a href="/accounts" class="sub-item">
+                                <i class="far fa-plus-square"></i>
+                                Manage account
+                            </a>
+
+                            <a href="/accounts/list-employees" class="sub-item">
+                                <i class="fas fa-list"></i>
+                                List employees
+                            </a>
+
+                            <a href="/information" class="sub-item">
+                                <i class="fas fa-user"></i>
+                                Your information
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <a href="/carts/check-out">
+                            <i class="fab fa-apple-pay" style='font-size:20px'></i>
+                            Check Out
+                        </a>
+                    </div>
+
+                    <div class="item"><a href="/accounts/logout"><i class='fas fa-sign-out-alt'></i>Logout</a></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ========================= Main ==================== -->
+
+            <% if(errorMessage.length> 0) { %>
+            <p id="errorMessageAlert" class="alert fade show"
+                style="color: red; background-color: aliceblue; font-size: x-large; text-align: center;">
+                <%= errorMessage %>
+            </p>
+            <% } %>
+
+            <p id="messageAlert" class="alert fade show"
+                style="color: red; background-color: aliceblue; font-size: x-large; text-align: center; display: none;">
+                messageAlert
+            </p>
+
+
+                <div class="main">
+
+                    <div class="topbar">
+
+                        <div class="search">
+                            <label>
+                                <input id="search" type="text" placeholder="Search here">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </label>
+                        </div>
+
+                        <div class="addcart">
+                            <label>
+                                <input id="valueInput" type="text" placeholder="Barcode or name">
+                                <button id="addBtn">Add to cart</button>
+                            </label>
+                        </div>
+
+                        <div class="cart-topbar">
+                            <a href="/carts">
+                                <i class='fas fa-shopping-bag' style='font-size:100px; color:black'></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="container-item">
+
+                        <h3 class="title-item"> Apple Productions </h3>
+
+                        <div class="products-container">
+
+                            <% listItems.forEach(item=> { %>
+                                <div class="product" data-name="<%= item._id %>">
+                                    <div>
+                                        <img class="img-item" src="/Image/products/<%= item.url_image %>" alt="">
+                                    </div>
+                                    <h3>
+                                        <%= item.name %>
+                                    </h3>
+                                    <div class="price">$<%= item.retail_price %>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+
+                    </div>
+
+                    <div class="products-preview">
+
+                        <% listItems.forEach(item=> { %>
+                            <div class="preview" data-target="<%= item._id %>">
+                                <i class="fas fa-times"></i>
+                                <img class="img-item2" src="/Image/products/<%= item.url_image %>" alt="">
+                                <h3>
+                                    <%= item.name %>
+                                </h3>
+                                <p>Barcode: <%= item.barcode %>
+                                </p>
+                                <p>Category: <%= item.category %>
+                                </p>
+                                <p>Date creation: <%= item.creation_date %>
+                                </p>
+                                <div class="price">$<%= item.retail_price %>
+                                </div>
+                                <div class="buttons">
+                                    <a data-id="<%= item._id %>" class="cart">add to cart</a>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+
+                </div>
+
+    </div>
+
+
+
+
+    <!--======= JavaScript =============  -->
+    <script src="/Style/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script>
+
+        function submitForm() {
+            var form = document.getElementById("reportForm");
+            form.submit();
+        }
+
+        document.querySelector('.products-preview').addEventListener('click', function (event) {
+            if (event.target.classList.contains('cart')) {
+                const itemId = event.target.getAttribute('data-id');
+
+                addProductToCart(itemId, '_id')
+            }
+        })
+
+        hiddenPreviewAfterAddCart()
+
+        function hiddenPreviewAfterAddCart() {
+            let addCartElements = document.querySelectorAll('.cart');
+
+            addCartElements.forEach(function (addCartElement) {
+                addCartElement.addEventListener('click', function (event) {
+
+                    let preveiwContainer = document.querySelector(".products-preview");
+                    let previewBox = preveiwContainer.querySelectorAll(".preview");
+
+                    for (var i = 0; i < previewBox.length; i++) {
+                        previewBox[i].classList.remove("active");
+                        preveiwContainer.style.display = "none";
+                    }
+                });
+            });
+        }
+
+        document.getElementById('addBtn').addEventListener('click', function (event) {
+
+            let valueInput = document.getElementById('valueInput')
+            let keyword = valueInput.value
+            valueInput.value = ''
+
+            if(!keyword || keyword === '') {
+                return showAndHideMessage('Provide barcode or name', 'red', 1500)
+            }
+
+            addProductToCart(keyword, 'barcode/name')
+
+        });
+
+        function addProductToCart(value, type) {
+            const url = '/carts/add'
+            
+            let form = new FormData();
+
+            form.set('value', value)
+            form.set('type', type)
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url, true)
+
+            xhr.addEventListener('load', e => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const json = JSON.parse(xhr.responseText)
+
+                    if (json.code === 0) {
+                        return showAndHideMessage(json.message, 'rgb(45, 177, 45)', 1500)
+                    }
+                    else if (json.code === 2) {
+                        return showAndHideMessage(json.message, 'red', 1500)
+                    }
+
+                    return showAndHideMessage('add to cart failed', 'red', 1500)
+
+                }
+            })
+
+            xhr.send(form)
+        }
+
+
+        let debounceTimer;
+        document.getElementById('search').addEventListener('input', function (event) {
+
+            clearTimeout(debounceTimer);
+
+            debounceTimer = setTimeout(function () {
+                let keyword = event.target.value;
+
+                if (!keyword) {
+                    keyword = ''
+                }
+
+                sendFormWithUrl('/search-products', keyword)
+            }, 300);
+
+        });
+
+        function sendFormWithUrl(url, keyword) {
+            let form = new FormData();
+
+            form.set('keyword', keyword)
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url, true)
+
+            xhr.addEventListener('load', e => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const json = JSON.parse(xhr.responseText)
+
+                    if (json.code === 0) {
+                        const data = json.data
+                        displayProducts(data)
+                    }
+                    else if (json.code === 2) {
+                        console.log(json.message)
+                    }
+                    else {
+                        console.log('search products failed')
+                    }
+                }
+            })
+
+            xhr.send(form)
+        }
+
+        function displayProducts(listProducts) {
+
+            let containerItems = document.querySelector('.products-container');
+            let containerPreview = document.querySelector('.products-preview');
+            containerItems.innerHTML = '';
+            containerPreview.innerHTML = '';
+
+            listProducts.forEach(product => {
+                const containerHTML = `
+                        <div class="product" data-name="${product._id}">
+                            <div>
+                                <img class="img-item" src="/Image/products/${product.url_image}" alt="">
+                            </div>
+                            <h3>${product.name}</h3>
+                            <div class="price">$${product.retail_price}</div>
+                        </div>
+                    `
+
+                const previewHTML = `
+                            <div class="preview" data-target="${product._id}">
+                                <i class="fas fa-times"></i>
+                                <img class="img-item2" src="/Image/products/${product.url_image}" alt="">
+                                <h3>
+                                    ${product.name}
+                                </h3>
+                                <p>Barcode: ${product.barcode}
+                                </p>
+                                <p>Category: ${product.category}
+                                </p>
+                                <p>Date creation: ${product.creation_date}
+                                </p>
+                                <div class="price">$${product.retail_price}
+                                </div>
+                                <div class="buttons">
+                                    <a data-id="${product._id}" href="#" class="cart">add to cart</a>
+                                </div>
+                            </div>
+                    `
+
+                containerItems.innerHTML += containerHTML;
+                containerPreview.innerHTML += previewHTML;
+            });
+
+            previewProducts()
+        }
+
+        function previewProducts() {
+            let preveiwContainer = document.querySelector(".products-preview");
+            if (preveiwContainer) {
+                let previewBox = preveiwContainer.querySelectorAll(".preview");
+
+                document.querySelectorAll(".products-container .product").forEach((product) => {
+                    product.onclick = () => {
+                        preveiwContainer.style.display = "flex";
+                        let name = product.getAttribute("data-name");
+                        previewBox.forEach((preview) => {
+                            let target = preview.getAttribute("data-target");
+                            if (name == target) {
+                                preview.classList.add("active");
+                            }
+                        });
+                    };
+                });
+
+                previewBox.forEach((close) => {
+                    close.querySelector(".fa-times").onclick = () => {
+                        close.classList.remove("active");
+                        preveiwContainer.style.display = "none";
+                    };
+                });
+            }
+
+            hiddenPreviewAfterAddCart()
+        }
+
+        setTimeout(function () {
+            var errorMessageAlert = document.getElementById('errorMessageAlert');
+            if (errorMessageAlert) {
+                errorMessageAlert.style.display = 'none';
+            }
+        }, 2000);
+    
+        function showAndHideMessage(messageContent, rgbaColor, duration) {
+            var messageAlert = document.getElementById('messageAlert');
+
+            if (messageAlert) {
+                messageAlert.innerHTML = messageContent;
+
+                if (rgbaColor) {
+                    messageAlert.style.color = rgbaColor;
+                }
+                messageAlert.style.display = 'block';
+
+                setTimeout(function () {
+                    messageAlert.style.display = 'none';
+
+                }, duration);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
